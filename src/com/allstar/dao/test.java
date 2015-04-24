@@ -2,6 +2,7 @@ package com.allstar.dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import com.allstar.statistics.MaximumLikelihood;
 
 public class test
 {
@@ -10,9 +11,10 @@ public class test
 		DaoConfig.init();
 		DaoInstance di =new DaoInstance("gk");
 		di.connect();
-		for(String s:di.queryAllUniversity("lqk10")){
-			System.out.println(s);
-		}
+		MaximumLikelihood ml =new MaximumLikelihood(di.queryPointByUniversity("lqk11", "北京大学"));
+		ml.analyse();
+		System.out.println(ml.getMu());
+		System.out.println(ml.getSigma());
 		di.disconnect();
 	}
 }

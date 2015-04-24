@@ -23,12 +23,12 @@ public class DaoInstance
       if(conn.isClosed())
 			System.err.println("Fail to connect to Mysql");
       String queryString =new String(DaoConfig.USE_DATABASE);
-      PreparedStatement ps=conn.prepareStatement(replaceSignal(queryString,DataBase));
+      PreparedStatement ps=conn.prepareStatement(convertTable(queryString,DataBase));
       ps.execute();
       ps.close();
 	}
     
-	private String replaceSignal(String string,String replace){
+	private String convertTable(String string,String replace){
 		int end=string.indexOf("?");
 		String temp1 = string.substring(0, end);
 		String temp2 = string.substring(end+1);
@@ -39,25 +39,28 @@ public class DaoInstance
 		return sb.toString();	    
 	}
 	
-	public void queryPointByUniversity(String TableName,String University) throws SQLException
+	public List<Double> queryPointByUniversity(String TableName,String University) throws SQLException
 	{
-		PreparedStatement ps=conn.prepareStatement(DaoConfig.QUERY_POINT_BY_UNIVERSITY);
-		ps.setString(1, TableName);
-		ps.setString(2, University);
+		List<Double> list=new LinkedList<Double>();
+		String queryString =new String(DaoConfig.QUERY_POINT_BY_UNIVERSITY);
+		queryString =convertTable(queryString,TableName);
+		PreparedStatement ps=conn.prepareStatement(queryString);
+		ps.setString(1, University);
 		ResultSet rs=ps.executeQuery();
 		while(rs.next())
-		{
-			rs.getString("");
+		{		
+		   list.add(rs.getDouble("ZF"));
 		}
 		rs.close();
 		ps.close();
+		return list;
 		
 	}
 	
 	public List<String> queryAllUniversity(String TableName) throws SQLException
 	{
 		String queryString =new String(DaoConfig.QUERY_ALL_UNVERSITY);
-		queryString=replaceSignal(queryString,TableName);
+		queryString=convertTable(queryString,TableName);
 		PreparedStatement ps=conn.prepareStatement(queryString);
 		LinkedList<String> list=new LinkedList<String>();
 		ResultSet rs=ps.executeQuery();
@@ -67,10 +70,12 @@ public class DaoInstance
 			if(!list.contains(university))
 			    list.add(university);
 		}
+		rs.close();
+		ps.close();
 		return list;
 	}
 	
-	public void assignNumberToUniversity()
+	public void assignNumberToUniversity(String [] universities)
 	{
 		
 	}
