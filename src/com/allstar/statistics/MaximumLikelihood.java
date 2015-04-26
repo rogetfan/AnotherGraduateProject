@@ -31,12 +31,12 @@ public class MaximumLikelihood
 	   {
 		   total1=d+total1;
 	   }
-	   sigma=total1/length;
+	   mu=total1/length;
 	   for(Double d: points)
 	   {
-		   total2=(d-sigma)*(d-sigma)+total2;
+		   total2=(d-mu)*(d-mu)+total2;
 	   }
-	   mu=(float) Math.sqrt(total2);
+	   sigma=(float) Math.sqrt(total2);
 	   
 	}
 }
