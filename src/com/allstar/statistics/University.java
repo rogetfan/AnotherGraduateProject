@@ -1,4 +1,7 @@
 package com.allstar.statistics;
+/**
+ * 大学实例
+ * */
 
 public class University {
 	private String university_name;

@@ -15,7 +15,7 @@ public class DaoInstance {
 	public DaoInstance(String DataBase) {
 		this.DataBase = DataBase;
 	}
-
+    //连接数据库
 	public void connect() throws SQLException {
 		conn = DriverManager.getConnection(DaoConfig.getMysqlUrl(),
 				DaoConfig.getUserName(), DaoConfig.getPassWord());
@@ -27,14 +27,14 @@ public class DaoInstance {
 		ps.execute();
 		ps.close();
 	}
-
+    //University实例的数据库表达形式
 	public void CREATE_TABLE_WEIGHT_OF_UNIVERSITY() throws SQLException {
 		PreparedStatement ps = conn
 				.prepareStatement(DaoConfig.CREATE_TABLE_WEIGHT_OF_UNIVERSITY);
 		ps.execute();
 		ps.close();
 	}
-
+    //创建数据表，分配学校代号
 	public void CREATE_TABLE_ASSIGN_NUMBER_TO_UNIVERSITY() throws SQLException {
 		PreparedStatement ps = conn
 				.prepareStatement(DaoConfig.CREATE_TABLE_ASSIGN_NUMBER_TO_UNIVERSITY);
@@ -42,7 +42,7 @@ public class DaoInstance {
 		ps.close();
 
 	}
-
+   //将问号编成数据表名
 	private String convertTable(String string, String replace) {
 		int end = string.indexOf("?");
 		String temp1 = string.substring(0, end);
@@ -53,9 +53,10 @@ public class DaoInstance {
 		sb.append(temp2);
 		return sb.toString();
 	}
-
+    //根据文理科返回该校录取成绩
+	//clazz根据数值来判断为文科还是理科
 	public List<Double> queryPointByUniversity(String TableName,
-			String University) throws SQLException {
+			String University,int clazz) throws SQLException {
 		List<Double> list = new LinkedList<Double>();
 		String queryString = new String(DaoConfig.QUERY_POINT_BY_UNIVERSITY);
 		queryString = convertTable(queryString, TableName);
@@ -90,7 +91,7 @@ public class DaoInstance {
 
 	public void parseExameNumber() 
 	{
-
+         
 	}
 
 	public void assignNumberToUniversity(String[] universities)

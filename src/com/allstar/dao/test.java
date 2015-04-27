@@ -11,7 +11,7 @@ public class test
 		DaoConfig.init();
 		DaoInstance di =new DaoInstance("gk");
 		di.connect();
-		MaximumLikelihood ml =new MaximumLikelihood(di.queryPointByUniversity("lqk11", "北京大学"));
+		MaximumLikelihood ml =new MaximumLikelihood(di.queryPointByUniversity("lqk11", "北京大学",11));
 		ml.analyse();
 		System.out.println(ml.getMu());
 		System.out.println(ml.getSigma());

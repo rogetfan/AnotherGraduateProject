@@ -1,5 +1,9 @@
 package com.allstar.statistics;
 
+/**
+ * 快速排序算法
+ * */
+
 public class QuickSort
 {
 	static  final void quick_sort(float[] arrays,int begin,int end)

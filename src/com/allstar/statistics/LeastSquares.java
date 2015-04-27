@@ -2,6 +2,11 @@ package com.allstar.statistics;
 
 import java.util.List;
 
+/**
+ * 求解最小二乘法
+ * y=ax+b
+ * **/
+
 public class LeastSquares {
 	private List<University> list;
 	private double a;

@@ -2,6 +2,10 @@ package com.allstar.statistics;
 
 import java.util.List;
 
+/**
+ * 最大似然估计法
+ * */
+
 public class MaximumLikelihood
 {
 	private double sigma;
