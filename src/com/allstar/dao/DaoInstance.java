@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -120,6 +121,26 @@ public class DaoInstance
 		}
 	}
 
+	public List<String> queryPointOrderByUniversity(String TableName) throws SQLException
+	{
+		String queryString = new String(DaoConfig.QUERY_ALL_INFO_ORDER_BY_UNIVERSITY);
+		queryString = convertTable(queryString, TableName);
+		PreparedStatement ps = conn.prepareStatement(queryString);
+		List<String> result=new ArrayList<String>();
+		ResultSet rs = ps.executeQuery();
+		while(rs.next())
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append(rs.getString("KSH"));
+			sb.append(":");
+			sb.append(rs.getString("YXMC"));
+			sb.append(":");
+			sb.append(rs.getString("ZF"));
+			result.add(sb.toString());
+		}
+		return result;
+	}
+	
 	public void disconnect() throws SQLException
 	{
 		conn.close();

@@ -13,7 +13,12 @@ public class test
 		DaoConfig.init();
 		DaoInstance di =new DaoInstance("gk");
 		di.connect();
-		System.out.println(di.parseExameNumber("12120107918027"));
+//		System.out.println(di.parseExameNumber("12120107918027"));
+		for(String s:di.queryPointOrderByUniversity("lqk10"))
+		{
+			System.out.println(s);
+		}
+		
 //		MaximumLikelihood ml =new MaximumLikelihood(di.queryPointByUniversity("lqk11", "北京大学",11));
 //		ml.analyse();
 //		System.out.println(ml.getMu());
