@@ -30,7 +30,12 @@ public class InitWeightOfUniversityHandler
 			System.err.println("Create Table WEIGHT_OF_UNIVERSITY Failed");
 			e1.printStackTrace();
 		}
-		
+		handle("lqk09");
+//		handle("lqk10");
+//		handle("lqk11");
+//		handle("lqk12");
+//		handle("lqk13");
+//		handle("lqk14");
 		try
 		{
 			di.disconnect();
@@ -39,6 +44,23 @@ public class InitWeightOfUniversityHandler
 		{
 			System.err.println("DataBase Closed ERROR");
 			e.printStackTrace();
+		}
+    }
+    
+    public static void handle(String TableName)
+    {
+    	
+    	try
+		{
+			for(String s:di.queryPointOrderByUniversity(TableName))
+			{
+				System.out.println(s);
+			}
+		}
+		catch (SQLException e1)
+		{
+			System.err.println("Query Data ERROR FROM　LQK*");
+			e1.printStackTrace();
 		}
     }
 }
