@@ -19,9 +19,10 @@ public class UniversityQuickSort
 		int j;
 		University x;
 		x = arrays.get(end);
+		//System.out.println("end:"+x.getMu());
 		for (j = begin, i = begin-1; j < end; j++)
 		{
-			if (arrays.get(j).getMu() <= x.getIndex()&&i++<end)
+			if (arrays.get(j).getMu() <= x.getMu()&&i++<end)
 			{			
 				if (i == j){}				
 				else

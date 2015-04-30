@@ -50,11 +50,15 @@ public class InitWeightOfUniversityHandler
     public static void handle(String TableName)
     {
     	
+    	
     	try
 		{
 			for(String s:di.queryPointOrderByUniversity(TableName))
 			{
-				System.out.println(s);
+				String[] ss= s.split(":");
+				System.out.println(ss[0]);
+				System.out.println(ss[1]);
+				System.out.println(ss[2]);
 			}
 		}
 		catch (SQLException e1)
