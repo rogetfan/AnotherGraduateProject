@@ -9,11 +9,15 @@ public class University {
 	private double mu;
 	private double sigma;
 	private int year;
+	//人数排名起始位置
 	private int index;
+	//总人数
 	private int total;
-	//文科 true
-	//理科 false
+	//文科 91
+	//理科 95
 	private int clazz;
+	//该年次排名
+	private int rank;
 
 	public int getYear() 
 	{
@@ -87,6 +91,16 @@ public class University {
 
 	public void setClazz(int clazz) {
 		this.clazz = clazz;
+	}
+
+	public int getRank()
+	{
+		return rank;
+	}
+
+	public void setRank(int rank)
+	{
+		this.rank = rank;
 	}
 
 }

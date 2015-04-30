@@ -82,7 +82,7 @@ public class DaoInstance
 		return list;
 
 	}
-    //选取左右高校名称
+    //选取所有高校名称
 	public List<String> queryAllUniversity(String TableName) throws SQLException
 	{
 		String queryString = new String(DaoConfig.QUERY_ALL_UNVERSITY);
