@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.allstar.dao.DaoConfig;
 import com.allstar.dao.DaoInstance;
+import com.allstar.statistics.MaximumLikelihood;
+import com.allstar.statistics.University;
 
 public class InitWeightOfUniversityHandler
 {
@@ -57,7 +58,7 @@ public class InitWeightOfUniversityHandler
     	List<Double> list_ba = new ArrayList<Double>();
     	//理科成绩列表
     	List<Double> list_sci = new ArrayList<Double>();
-    	
+    	List<University> list_uni =new ArrayList<University>();
     	try
 		{
 			for(String s:di.queryPointOrderByUniversity(TableName))
@@ -101,11 +102,16 @@ public class InitWeightOfUniversityHandler
 				{
 					if(!list_ba.isEmpty())
 					{
-					   //计算并插入数据库	
+						MaximumLikelihood ml=new MaximumLikelihood(list_ba);
+					    ml.analyse();
+					    
 					}
 				    if(!list_sci.isEmpty())
 				    {
-				       //计算并插入数据库
+				       //计算并存入缓存列表
+				    	MaximumLikelihood ml=new MaximumLikelihood(list_sci);
+						ml.analyse();
+				    	
 				    }
 					temp_school=ss[1];
 					if(di.parseExameNumber(ss[0])==91)
@@ -128,5 +134,10 @@ public class InitWeightOfUniversityHandler
 			System.err.println("Query Data ERROR FROM　LQK*");
 			e1.printStackTrace();
 		}
+    }
+    private static int getYearByTablename(String tablename)
+    {
+       if(tablename.endsWith("09"));
+        return 2009;
     }
 }
