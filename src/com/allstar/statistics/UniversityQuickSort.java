@@ -2,6 +2,7 @@ package com.allstar.statistics;
 
 import java.util.ArrayList;
 
+//University类的快速排序法
 public class UniversityQuickSort
 {
 	static  final void quick_sort(ArrayList<University> arrays,int begin,int end)

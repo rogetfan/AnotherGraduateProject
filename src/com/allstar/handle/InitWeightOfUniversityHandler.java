@@ -2,6 +2,9 @@ package com.allstar.handle;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.allstar.dao.DaoConfig;
 import com.allstar.dao.DaoInstance;
 
@@ -49,7 +52,11 @@ public class InitWeightOfUniversityHandler
     
     public static void handle(String TableName)
     {
-    	
+    	String temp_school=null;
+    	//文科成绩列表
+    	List<Double> list_ba = new ArrayList<Double>();
+    	//理科成绩列表
+    	List<Double> list_sci = new ArrayList<Double>();
     	
     	try
 		{
@@ -59,6 +66,61 @@ public class InitWeightOfUniversityHandler
 				System.out.println(ss[0]);
 				System.out.println(ss[1]);
 				System.out.println(ss[2]);
+				if(temp_school==null)
+				{
+					temp_school = ss[1];
+					if(di.parseExameNumber(ss[0])==91)
+					{
+						list_ba.add(Double.parseDouble(ss[2]));
+					}
+					else if (di.parseExameNumber(ss[0])==95)
+					{
+						list_sci.add(Double.parseDouble(ss[2]));
+					}
+					else
+					{
+						continue;
+					}
+				} 
+				else if(temp_school==ss[1])
+				{
+					if(di.parseExameNumber(ss[0])==91)
+					{
+						list_ba.add(Double.parseDouble(ss[2]));
+					}
+					else if (di.parseExameNumber(ss[0])==95)
+					{
+						list_sci.add(Double.parseDouble(ss[2]));
+					}
+					else
+					{
+						continue;
+					}
+				} 
+				else 
+				{
+					if(!list_ba.isEmpty())
+					{
+					   //计算并插入数据库	
+					}
+				    if(!list_sci.isEmpty())
+				    {
+				       //计算并插入数据库
+				    }
+					temp_school=ss[1];
+					if(di.parseExameNumber(ss[0])==91)
+					{
+						list_ba.add(Double.parseDouble(ss[2]));
+					}
+					else if (di.parseExameNumber(ss[0])==95)
+					{
+						list_sci.add(Double.parseDouble(ss[2]));
+					}
+					else
+					{
+						continue;
+					}
+				}
 			}
 		}
 		catch (SQLException e1)
