@@ -5,7 +5,7 @@ import java.util.ArrayList;
 //University类的快速排序法
 public class UniversityQuickSort
 {
-	static  final void quick_sort(ArrayList<University> arrays,int begin,int end)
+	public static   void quick_sort(ArrayList<University> arrays,int begin,int end)
 	{
           if(begin<end){
         	  int q =partition(arrays, begin,end);
@@ -14,7 +14,7 @@ public class UniversityQuickSort
           }
 	}
 
-	static final int partition(ArrayList<University> arrays,int begin,int end)
+	private static  int partition(ArrayList<University> arrays,int begin,int end)
 	{
 		int i;
 		int j;

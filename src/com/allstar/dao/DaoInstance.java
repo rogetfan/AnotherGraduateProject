@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import com.allstar.statistics.University;
 
 public class DaoInstance
 {
@@ -107,7 +109,7 @@ public class DaoInstance
 	{
        return Integer.parseInt(code.substring(8, 10));
 	}
-
+    //为每个学校分配一个编号
 	public void assignNumberToUniversity(List<String> universities) throws SQLException
 	{
 		for (String s : universities)
@@ -120,15 +122,52 @@ public class DaoInstance
 			ps.close();
 		}
 	}
+	
+	
+	public void InsertUniversityInstance(University u) throws SQLException
+	{
+		PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_NUMBER_TO_UNIVERSITY);
+		ps.setInt(1,u.getUniversity_number());
+		ps.setDouble(2, u.getSigma());
+		ps.setDouble(3, u.getMu());
+		ps.setInt(4, u.getYear());
+		ps.setInt(5, u.getTotal());
+		ps.setInt(6, u.getIndex());
+		ps.setInt(7, u.getClazz());
+		ps.setInt(8, u.getRank());
+		ps.executeUpdate();
+		ps.close();
+	}
+	//通过学校名称检索编号
     public int querySchoolNumberByName(String name) throws SQLException
     {
     	PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_NUMBER_TO_UNIVERSITY);
     	ps.setString(1, name);
     	ResultSet rs=ps.executeQuery();
     	rs.next();
-    	return rs.getInt("UniNumber");
+    	int number=rs.getInt("UniNumber");
+    	rs.close();
+    	ps.close();
+    	return number;
     	
     }
+    //检索所有的学校编号
+    public HashMap<String,Integer> queryAllSchoolNumberByName() throws SQLException
+    {
+		HashMap<String,Integer> map=new HashMap<String,Integer>();
+		PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_ALL_NUMBER_TO_UNIVERSITY);
+		ResultSet rs= ps.executeQuery();
+		while(rs.next())
+		{
+			map.put(rs.getString("UniName"), rs.getInt("UniNumber"));
+		}
+		rs.close();
+		ps.close();
+    	return map;
+    	
+    }
+    
+    //检索该年所有人的分数
 	public List<String> queryPointOrderByUniversity(String TableName) throws SQLException
 	{
 		String queryString = new String(DaoConfig.QUERY_ALL_INFO_ORDER_BY_UNIVERSITY);
@@ -146,6 +185,8 @@ public class DaoInstance
 			sb.append(rs.getString("ZF"));
 			result.add(sb.toString());
 		}
+		rs.close();
+		ps.close();
 		return result;
 	}
 	

@@ -5,7 +5,7 @@ package com.allstar.statistics;
 
 public class University {
 	private String university_name;
-	private String university_number;
+	private int university_number;
 	private double mu;
 	private double sigma;
 	private int year;
@@ -39,12 +39,12 @@ public class University {
 		this.university_name = university_name;
 	}
 
-	public String getUniversity_number() 
+	public int getUniversity_number() 
 	{
 		return university_number;
 	}
 
-	public void setUniversity_number(String university_number) 
+	public void setUniversity_number(int university_number) 
 	{
 		this.university_number = university_number;
 	}
@@ -85,7 +85,7 @@ public class University {
 		this.total = total;
 	}
 
-	public int isClazz() {
+	public int getClazz() {
 		return clazz;
 	}
 
