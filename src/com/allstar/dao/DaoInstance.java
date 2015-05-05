@@ -120,7 +120,15 @@ public class DaoInstance
 			ps.close();
 		}
 	}
-
+    public int querySchoolNumberByName(String name) throws SQLException
+    {
+    	PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_NUMBER_TO_UNIVERSITY);
+    	ps.setString(1, name);
+    	ResultSet rs=ps.executeQuery();
+    	rs.next();
+    	return rs.getInt("UniNumber");
+    	
+    }
 	public List<String> queryPointOrderByUniversity(String TableName) throws SQLException
 	{
 		String queryString = new String(DaoConfig.QUERY_ALL_INFO_ORDER_BY_UNIVERSITY);

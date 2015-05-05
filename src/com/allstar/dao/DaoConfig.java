@@ -36,6 +36,7 @@ public class DaoConfig
     public final static String INSERT_TABLE_WEIGHT_OF_UNIVERSITY="INSERT INTO `gk`.`weight_of_university`(`UniNumber`,`sgima`,`mu`,`year`) VALUES ( ?,?,?,?);";
 	public final static String QUERY_ALL_UNVERSITY="select YXMC from ?";
 	public final static String QUERY_NUMBER_TO_UNIVERSITY="SELECT * FROM uni_name_number WHERE UniName = ?";
+	public final static String QUERY_ALL_NUMBER_TO_UNIVERSITY="SELECT * FROM uni_name_number";
 	public final static String QUERY_ALL_INFO_BY_UNIVERSITY="select * from ? where YXMC = ?";
 	public final static String QUERY_ALL_INFO_ORDER_BY_UNIVERSITY="select * from ? order by YXMC";
 	public static void init() throws IOException
