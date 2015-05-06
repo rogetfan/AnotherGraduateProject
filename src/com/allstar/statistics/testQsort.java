@@ -28,7 +28,7 @@ public class testQsort
 	   list.add(u5);
 	   list.add(u6);
 	   list.add(u7);
-	   UniversityQuickSort.quick_sort(list, 0,5);
+	   UniversityQuickSort.quick_sort(list, 0,6);
 	   for(University s:list)
 	   {
 		   System.out.println(s.getMu());

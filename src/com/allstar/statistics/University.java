@@ -19,6 +19,29 @@ public class University {
 	//该年次排名
 	private int rank;
 
+	public String toString(){
+		StringBuilder sb=new StringBuilder();
+		sb.append("\nuniversity_name:");
+		sb.append(university_name);
+		sb.append("\nuniversity_number:");
+		sb.append(university_number);
+		sb.append("\nmu:");
+		sb.append(mu);
+		sb.append("\nsigma:");
+		sb.append(sigma);
+		sb.append("\nyear:");
+		sb.append(year);
+		sb.append("\nindex:");
+		sb.append(index);
+		sb.append("\ntotal:");
+		sb.append(total);
+		sb.append("\nclazz:");
+		sb.append(clazz);
+		sb.append("\nrank:");
+		sb.append(rank);
+		return sb.toString();
+	}
+	
 	public int getYear() 
 	{
 		return year;

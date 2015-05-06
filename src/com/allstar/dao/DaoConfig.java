@@ -31,7 +31,7 @@ public class DaoConfig
 	private static String MysqlUrl;
     public final static String USE_DATABASE="use ?";
     public final static String CREATE_TABLE_ASSIGN_NUMBER_TO_UNIVERSITY="CREATE TABLE `uni_name_number` (`UniNumber` INT(11) NOT NULL AUTO_INCREMENT,`UniName` VARCHAR(30) DEFAULT NULL UNIQUE,PRIMARY KEY (`UniNumber`)) ENGINE=INNODB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC";
-	public final static String CREATE_TABLE_WEIGHT_OF_UNIVERSITY="CREATE TABLE `weight_of_university` (`UniNumber` int(11) NOT NULL,`sgima` DOUBLE NOT NULL,`mu` DOUBLE NOT NULL,`year` INT(4) NOT NULL, `total` int(11) NOT NULL,`index` int(11) NOT NULL,`clazz` tinyint(4) NOT NULL,`rank` int(11) NOT NULL,PRIMARY KEY (`UniNumber`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC";
+	public final static String CREATE_TABLE_WEIGHT_OF_UNIVERSITY="CREATE TABLE `weight_of_university` (`UniNumber` int(11) NOT NULL,`sgima` DOUBLE NOT NULL,`mu` DOUBLE NOT NULL,`year` INT(4) NOT NULL, `total` int(11) NOT NULL,`index` int(11) NOT NULL,`clazz` tinyint(4) NOT NULL,`rank` int(11) NOT NULL,PRIMARY KEY (`UniNumber`,`year`,`clazz`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC";
     public final static String INSERT_INTO_ASSIGN_NUMBER_TO_UNIVERSITY="INSERT INTO `gk`.`uni_name_number`(`UniName`) VALUES (?)";
     public final static String INSERT_TABLE_WEIGHT_OF_UNIVERSITY="INSERT INTO `gk`.`weight_of_university`(`UniNumber`,`sgima`,`mu`,`year`,`total`,`index`,`clazz`,`rank`) VALUES ( ?,?,?,?,?,?,?,?);";
 	public final static String QUERY_ALL_UNVERSITY="select YXMC from ?";

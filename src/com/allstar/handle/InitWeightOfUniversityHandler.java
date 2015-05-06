@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import com.allstar.dao.DaoConfig;
 import com.allstar.dao.DaoInstance;
 import com.allstar.statistics.MaximumLikelihood;
@@ -47,11 +48,11 @@ public class InitWeightOfUniversityHandler
 			e1.printStackTrace();
 		}
 		handle("lqk09");
-		// handle("lqk10");
-		// handle("lqk11");
-		// handle("lqk12");
-		// handle("lqk13");
-		// handle("lqk14");
+		handle("lqk10");
+		handle("lqk11");
+		handle("lqk12");
+		handle("lqk13");
+		handle("lqk14");
 		try
 		{
 			di.disconnect();
@@ -77,22 +78,26 @@ public class InitWeightOfUniversityHandler
 			for (String s : di.queryPointOrderByUniversity(TableName))
 			{
 				String[] ss = s.split(":");
-				System.out.println(ss[0]);
-				System.out.println(ss[1]);
-				System.out.println(ss[2]);
+//				System.out.println(s);
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 				if (temp_school == null)
 				{
 					temp_school = ss[1];
 				}
 				else
-					if (temp_school == ss[1])
+					if (temp_school.equals(ss[1]) )
 					{
 						
 					}
 					else
 					{
 						if (!list_ba.isEmpty())
-						{
+						{   //System.out.println("Now school is "+temp_school);
 							MaximumLikelihood ml = new MaximumLikelihood(list_ba);
 							ml.analyse();
 							University u = new University();
@@ -106,6 +111,8 @@ public class InitWeightOfUniversityHandler
 							u.setUniversity_number(map.get(temp_school));
 							u.setYear(getYearByTablename(TableName));
 							list_uni_ba.add(u);
+							//System.out.println(u);
+							list_ba.clear();
 						}
 						if (!list_sci.isEmpty())
 						{
@@ -118,11 +125,12 @@ public class InitWeightOfUniversityHandler
 							// u.setRank(rank);
 							u.setMu(ml.getMu());
 							u.setSigma(ml.getSigma());
-							u.setTotal(list_ba.size());
+							u.setTotal(list_sci.size());
 							u.setUniversity_name(temp_school);
 							u.setUniversity_number(map.get(temp_school));
 							u.setYear(getYearByTablename(TableName));
 							list_uni_sci.add(u);
+							list_sci.clear();
 						}
 						temp_school = ss[1];
 				}
@@ -146,12 +154,33 @@ public class InitWeightOfUniversityHandler
 			System.err.println("Query Data ERROR FROM　LQK*");
 			e1.printStackTrace();
 		}
-		UniversityQuickSort.quick_sort(list_uni_ba, 0, list_uni_ba.size());
-		UniversityQuickSort.quick_sort(list_uni_sci, 0, list_uni_sci.size());
-		
+		System.out.println("Start to sort and insert");
 		//排序，插入数据库
+		insert(list_uni_ba);
+		insert(list_uni_sci);
+		System.out.println("End Insert");
+		
 	}
 
+	private static void insert(ArrayList<University> list)
+	{
+		int total_index=0;
+		UniversityQuickSort.quick_sort(list, 0, list.size()-1);
+		for(int i=list.size()-1;i>=0;i--)
+		{
+		    University u=list.get(i);
+		    u.setIndex(total_index);
+		    total_index=total_index+u.getTotal();
+		    u.setRank(list.size()-i);
+		    try {
+				di.InsertUniversityInstance(u);
+			} catch (SQLException e) {
+				System.err.println("Insert University Instance Error");
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private static int getYearByTablename(String tablename)
 	{
 		if (tablename.endsWith("09"))

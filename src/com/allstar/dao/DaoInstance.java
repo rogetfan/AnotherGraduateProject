@@ -123,10 +123,10 @@ public class DaoInstance
 		}
 	}
 	
-	
+	//插入每个学校的实例
 	public void InsertUniversityInstance(University u) throws SQLException
 	{
-		PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_NUMBER_TO_UNIVERSITY);
+		PreparedStatement ps = conn.prepareStatement(DaoConfig.INSERT_TABLE_WEIGHT_OF_UNIVERSITY);
 		ps.setInt(1,u.getUniversity_number());
 		ps.setDouble(2, u.getSigma());
 		ps.setDouble(3, u.getMu());
