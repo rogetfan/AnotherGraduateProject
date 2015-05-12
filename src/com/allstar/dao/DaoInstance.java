@@ -33,6 +33,11 @@ public class DaoInstance
 		ps.close();
 	}
 
+	public void DROP_TABLE(String tablename)
+	{
+		
+	}
+	
 	// University实例的数据库表达形式
 	public void CREATE_TABLE_WEIGHT_OF_UNIVERSITY() throws SQLException
 	{
