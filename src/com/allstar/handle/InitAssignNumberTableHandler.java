@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.allstar.dao.DaoConfig;
-import com.allstar.dao.DaoInstance;
+
+import com.allstar.model.dao.DaoConfig;
+import com.allstar.model.dao.DaoInstance;
 
 //先从五年中选取所有高校
 //再将其插入数据库表中

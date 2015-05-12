@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.allstar.dao.DaoConfig;
-import com.allstar.dao.DaoInstance;
+import com.allstar.model.dao.DaoConfig;
+import com.allstar.model.dao.DaoInstance;
 import com.allstar.statistics.MaximumLikelihood;
 import com.allstar.statistics.University;
 import com.allstar.statistics.UniversityQuickSort;
