@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="215.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.allstar.view.RootLayHanlder">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="初始化">
+            <items>
+              <MenuItem fx:id="iniTable1" mnemonicParsing="false" text="生成编号表" />
+                  <MenuItem fx:id="iniTable2" mnemonicParsing="false" text="生成排名表" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="设置">
+            <items>
+              <MenuItem fx:id="setting" mnemonicParsing="false" onAction="#displaySetting" text="数据库配置" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="帮助">
+            <items>
+              <MenuItem fx:id="about" mnemonicParsing="false" text="关于" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
