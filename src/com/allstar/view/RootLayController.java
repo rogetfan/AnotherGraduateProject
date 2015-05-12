@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class RootLayHanlder 
+public class RootLayController 
 {
     @FXML 
     private MenuItem setting;
@@ -33,12 +33,15 @@ public class RootLayHanlder
     		FXMLLoader loader =new FXMLLoader();
         	loader.setLocation(MainApp.class.getResource("view/ModifyDaoConfig.fxml"));
 			AnchorPane page = (AnchorPane) loader.load();
-			Stage dialogStage = new Stage();
-		    dialogStage.setTitle("更改数据库配置");
-		    dialogStage.initModality(Modality.WINDOW_MODAL);
-			Scene scene = new Scene(page);
-	        dialogStage.setScene(scene);
-	        dialogStage.show();
+			Stage ModifyDao = new Stage();
+			ModifyDao.setTitle("更改数据库配置");
+			ModifyDao.initModality(Modality.WINDOW_MODAL);
+		    ModifyDaoConfigController control = loader.getController();
+		    control.setSelf(ModifyDao);
+		    Scene scene = new Scene(page);
+		    ModifyDao.setScene(scene);
+		    ModifyDao.show();
+	        
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="145.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="145.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.allstar.view.ModifyDaoConfigController">
    <children>
       <GridPane layoutX="20.0" layoutY="15.0" prefHeight="83.0" prefWidth="248.0">
         <columnConstraints>
@@ -21,15 +21,15 @@
             <Label text="用户名" />
             <Label text="密码" GridPane.rowIndex="1" />
             <Label text="数据库Url" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="UserName" GridPane.columnIndex="1" />
+            <TextField fx:id="PassWord" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="MysqlUrl" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <HBox layoutX="42.0" layoutY="108.0" prefHeight="23.0" prefWidth="205.0" spacing="120.0">
          <children>
-            <Button layoutX="38.0" layoutY="152.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="65.0" text="确定" />
-            <Button layoutX="195.0" layoutY="152.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="60.0" text="取消" />
+            <Button layoutX="38.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#OnClickOk" prefHeight="23.0" prefWidth="65.0" text="确定" />
+            <Button layoutX="195.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#onClickCancel" prefHeight="23.0" prefWidth="60.0" text="取消" />
          </children>
       </HBox>
    </children>
