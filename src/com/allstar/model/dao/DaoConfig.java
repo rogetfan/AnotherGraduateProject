@@ -2,6 +2,7 @@ package com.allstar.model.dao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -57,13 +58,17 @@ public class DaoConfig
 		Properties prop = new Properties();
 		FileInputStream fis = new FileInputStream("setting.properties");
 	    prop.load(fis);
+	    fis.close();
 	    prop.setProperty("user_name", username);
 	    prop.setProperty("pass_word", password);
 	    prop.setProperty("mysql_url", url);
+	    FileOutputStream fos = new FileOutputStream("setting.properties");
+	    prop.store(fos,"");
+	    fos.close();
 	    UserName=username;
 	    PassWord=password;
 	    MysqlUrl=url;
-	    fis.close();
+	   
 	}
 	public static String getUserName()
 	{

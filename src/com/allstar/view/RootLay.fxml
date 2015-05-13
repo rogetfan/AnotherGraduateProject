@@ -11,8 +11,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="初始化">
             <items>
-              <MenuItem fx:id="iniTable1" mnemonicParsing="false" text="生成编号表" />
-                  <MenuItem fx:id="iniTable2" mnemonicParsing="false" text="生成排名表" />
+              <MenuItem fx:id="iniTable1" mnemonicParsing="false" onAction="#modifyTable1" text="生成编号表" />
+                  <MenuItem fx:id="iniTable2" mnemonicParsing="false" onAction="#modifyTable2" text="生成排名表" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="设置">

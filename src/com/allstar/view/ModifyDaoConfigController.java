@@ -23,6 +23,24 @@ public class ModifyDaoConfigController
 	    
 	    private Stage self;
 	    
+	    @FXML   
+	    private void initialize()
+	    {
+	    	try 
+	    	{
+				DaoConfig.init();
+			} 
+	    	catch (IOException e) 
+	    	{
+				System.err.println("Initialize database configuration error");
+				e.printStackTrace();
+			}
+	    	UserName.setText(DaoConfig.getUserName());
+	    	PassWord.setText(DaoConfig.getPassWord());
+	    	MysqlUrl.setText(DaoConfig.getMysqlUrl());
+	    	
+	    }
+	    
 	    public void setSelf(Stage self)
 	    {
 	    	this.self=self;
@@ -63,6 +81,10 @@ public class ModifyDaoConfigController
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	System.out.println(DaoConfig.getUserName());
+	    	System.out.println(DaoConfig.getPassWord());
+	    	System.out.println(DaoConfig.getMysqlUrl());
+	    	
 	    	self.close();
 	    }
 	    @FXML

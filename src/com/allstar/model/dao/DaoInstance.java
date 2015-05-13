@@ -33,9 +33,13 @@ public class DaoInstance
 		ps.close();
 	}
 
-	public void DROP_TABLE(String tablename)
+	public void drop_table(String tablename) throws SQLException
 	{
-		
+		String queryString = new String(DaoConfig.DROP_TABLE);
+		queryString=convertTable(queryString, tablename);
+		PreparedStatement ps = conn.prepareStatement(queryString);
+	    ps.execute();
+	    ps.close();
 	}
 	
 	// University实例的数据库表达形式

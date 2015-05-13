@@ -3,6 +3,8 @@ package com.allstar.view;
 import java.io.IOException;
 
 import com.allstar.MainApp;
+import com.allstar.handle.InitAssignNumberTableHandler;
+import com.allstar.handle.InitWeightOfUniversityHandler;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +48,18 @@ public class RootLayController
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    @FXML
+    private void modifyTable1()
+    {
+    	
+	   InitAssignNumberTableHandler.work();
+		
+    }
+    @FXML
+    private void modifyTable2()
+    {
+    	InitWeightOfUniversityHandler.work();
     }
     
 }

@@ -19,9 +19,17 @@ import com.allstar.model.dao.DaoInstance;
 public class InitAssignNumberTableHandler {
 	
 	private static DaoInstance di;
-	public static void main(String args[]) throws IOException
+	public static void work()
 	{
-		DaoConfig.init();
+		try 
+		{
+			DaoConfig.init();
+		}
+		catch (IOException e3) 
+		{
+			System.err.println("Initialize database configuration error");
+			e3.printStackTrace();
+		}
 	    di =new DaoInstance("gk");
 		try
 		{
@@ -31,7 +39,16 @@ public class InitAssignNumberTableHandler {
 		{
 			System.err.println("Connect to DataBase Error");
 			e.printStackTrace();
-		}
+		}		
+		try 
+		{
+			di.drop_table("uni_name_number");
+		} 
+		catch (SQLException e2) 
+		{
+			System.err.println("Drop table error");
+			e2.printStackTrace();
+		}		
 		try
 		{
 			di.CREATE_TABLE_ASSIGN_NUMBER_TO_UNIVERSITY();
@@ -76,5 +93,10 @@ public class InitAssignNumberTableHandler {
 			System.err.println("DataBase Closed ERROR");
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String args[])
+	{
+		work();
 	}
 }

@@ -2,6 +2,8 @@ package com.allstar;
 
 import java.io.IOException;
 
+import com.allstar.view.MainInputScreenController;
+
 import sun.applet.Main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +51,8 @@ public class MainApp extends Application
 		    loader.setLocation(MainApp.class.getResource("view/MainInputScreen.fxml"));
 			AnchorPane input = (AnchorPane) loader.load();
 			rootLayout.setCenter(input);
+			MainInputScreenController control = loader.getController();
+			control.setSelf(primaryStage);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

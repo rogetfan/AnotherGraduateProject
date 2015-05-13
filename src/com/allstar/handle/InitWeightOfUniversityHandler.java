@@ -17,9 +17,17 @@ public class InitWeightOfUniversityHandler
 	private static DaoInstance di;
 	private static HashMap<String, Integer> map;
 
-	public static void main(String args[]) throws IOException
+	public static void work()
 	{
-		DaoConfig.init();
+		try 
+		{
+			DaoConfig.init();
+		}
+		catch (IOException e3) 
+		{
+			System.err.println("Initialize database configuration error");
+			e3.printStackTrace();
+		}
 		di = new DaoInstance("gk");
 		try
 		{
@@ -30,6 +38,17 @@ public class InitWeightOfUniversityHandler
 			System.err.println("Connect to DataBase Error");
 			e.printStackTrace();
 		}
+		
+		try 
+		{
+			di.drop_table("weight_of_university");
+		} 
+		catch (SQLException e2) 
+		{
+			System.err.println("Drop table weight_of_university error");
+			e2.printStackTrace();
+		}
+		
 		try
 		{
 			di.CREATE_TABLE_WEIGHT_OF_UNIVERSITY();
@@ -202,5 +221,10 @@ public class InitWeightOfUniversityHandler
 								return 2014;
 							else
 								return -1;
+	}
+	
+	public static void main(String args[])
+	{
+		work();
 	}
 }
