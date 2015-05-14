@@ -42,6 +42,9 @@ public class DaoConfig
 	public final static String QUERY_ALL_NUMBER_TO_UNIVERSITY="SELECT * FROM uni_name_number";
 	public final static String QUERY_ALL_INFO_BY_UNIVERSITY="select * from ? where YXMC = ?";
 	public final static String QUERY_ALL_INFO_ORDER_BY_UNIVERSITY="select * from ? order by YXMC";
+	public final static String QUERY_FROM_UNIVERSITY_WEIGHT="select * from ? order by ZF DESC";
+	public final static String QUERY_RESULT_FROM_UNIVERSITY_WEIGHT="select * from weight_of_university where UniNumber = ? and clazz = ?";
+	public final static String QUERY_UNINUMBER="select * from uni_name_number where UniName = ?";
 	public static void init() throws IOException
 	{
 		Properties prop = new Properties();

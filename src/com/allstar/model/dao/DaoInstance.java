@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import com.allstar.statistics.University;
+
+import com.allstar.model.StatisResult;
+import com.allstar.model.University;
 
 public class DaoInstance
 {
@@ -32,7 +34,77 @@ public class DaoInstance
 		ps.execute();
 		ps.close();
 	}
+	
+	public List<StatisResult> query_all_result_from_university_weight(String uniname,int clazz)
+	{
+		List<StatisResult> list  =  new ArrayList<StatisResult>();
+		try 
+		{
+			int uninumber = query_uninumber(uniname);
+			PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_RESULT_FROM_UNIVERSITY_WEIGHT);
+		    ps.setInt(1, uninumber);
+		    ps.setInt(2, clazz);
+		    ResultSet rs = ps.executeQuery();
+		    while(rs.next())
+		    {
+		    	StatisResult sr =new StatisResult();
+		    	sr.setIndex(rs.getInt("index"));
+		    	sr.setTotal(rs.getInt("total"));
+		    	sr.setYear(rs.getInt("year"));
+		    	list.add(sr);
+		    }
+		    rs.close();
+		    ps.close();
+		} 
+		catch (SQLException e) 
+		{
+			System.err.println("Query UniNumber error");
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	private int query_uninumber(String uniname) throws SQLException
+	{
+		PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_UNINUMBER);
+		ps.setString(1, uniname);
+		System.out.println(ps.toString());
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		return rs.getInt("UniNumber");
+	}
+	
+	public int query_quantity_from_lqk(String tablename,int limit,String school) throws SQLException
+	{
+		String queryString =  new String(DaoConfig.QUERY_FROM_UNIVERSITY_WEIGHT);
+		queryString=convertTable(queryString,tablename);
+		queryString=add_limit(limit,queryString);
+		PreparedStatement ps = conn.prepareStatement(queryString);
+		System.out.println(ps.toString());
+		ResultSet rs = ps.executeQuery();
+		int count=0;
+		while(rs.next())
+		{
+			if(rs.getString("YXMC").equals(school))
+			count++;
+		}
+		rs.close();
+		ps.close();
+		return count;
+	}
 
+	private String add_limit(int limit,String string)
+	{
+		StringBuilder sb=new StringBuilder();
+		sb.append(string);
+		sb.append(" limit ");
+		sb.append("0,");
+		sb.append(limit);
+		return sb.toString();
+	}  
+	
+	
+	
 	public void drop_table(String tablename) throws SQLException
 	{
 		String queryString = new String(DaoConfig.DROP_TABLE);

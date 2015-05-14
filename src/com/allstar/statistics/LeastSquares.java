@@ -2,24 +2,27 @@ package com.allstar.statistics;
 
 import java.util.List;
 
+import com.allstar.model.StatisResult;
+import com.allstar.model.University;
+
 /**
  * 求解最小二乘法
  * y=ax+b
  * **/
 
 public class LeastSquares {
-	private List<University> list;
+	private List<StatisResult> list;
 	private double a;
 	private double b;
 
-	public LeastSquares(List<University> list) {
+	public LeastSquares(List<StatisResult> list) {
 		this.list = list;
 	}
 
 	public void analyse() {
 		double t1 = 0, t2 = 0, t3 = 0, t4 = 0;
-		for (University u : list) {
-			double point = u.getMu();
+		for (StatisResult u : list) {
+			double point = u.getPoint();
 			double year = u.getYear();
 			t1 += year * year;
 			t2 += year;

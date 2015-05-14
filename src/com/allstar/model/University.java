@@ -1,4 +1,4 @@
-package com.allstar.statistics;
+package com.allstar.model;
 /**
  * 大学实例
  * */

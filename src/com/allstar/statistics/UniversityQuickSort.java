@@ -2,6 +2,8 @@ package com.allstar.statistics;
 
 import java.util.ArrayList;
 
+import com.allstar.model.University;
+
 //University类的快速排序法
 public class UniversityQuickSort
 {
