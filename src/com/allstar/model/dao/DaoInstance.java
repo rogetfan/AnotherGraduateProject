@@ -68,7 +68,6 @@ public class DaoInstance
 	{
 		PreparedStatement ps = conn.prepareStatement(DaoConfig.QUERY_UNINUMBER);
 		ps.setString(1, uniname);
-		System.out.println(ps.toString());
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		return rs.getInt("UniNumber");
@@ -80,7 +79,6 @@ public class DaoInstance
 		queryString=convertTable(queryString,tablename);
 		queryString=add_limit(limit,queryString);
 		PreparedStatement ps = conn.prepareStatement(queryString);
-		System.out.println(ps.toString());
 		ResultSet rs = ps.executeQuery();
 		int count=0;
 		while(rs.next())

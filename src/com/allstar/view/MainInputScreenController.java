@@ -1,10 +1,18 @@
 package com.allstar.view;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import com.allstar.MainApp;
 import com.allstar.model.LineChartInstance;
+import com.allstar.model.StatisResult;
+import com.allstar.model.dao.DaoConfig;
+import com.allstar.model.dao.DaoInstance;
+import com.allstar.statistics.LeastSquares;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -38,47 +46,67 @@ public class MainInputScreenController
 	private void initialize()
 	{
 		Sci_Ba.getItems().addAll("文科","理科");
-		Sci_Ba.setPromptText("选择学科");
 	}
 	@FXML
 	private void onClickOk()
 	{
 	  int clazz= Sci_Ba.getSelectionModel().getSelectedItem().equals("理科")?95:91;
+	  String school = SchoolName.getText();
+	  DaoInstance di;
+	  try 
+	  {
+		DaoConfig.init();
+	  }
+	  catch (IOException e3) 
+	  {
+		System.err.println("Initialize database configuration error");
+		e3.printStackTrace();
+	  }
+      di =new DaoInstance("gk");
+	  try
+	  {
+		di.connect();
+	  }
+	  catch (SQLException e)
+ 	  {
+		System.err.println("Connect to DataBase Error");
+		e.printStackTrace();
+	  }
+	  List<StatisResult> list=di.query_all_result_from_university_weight(school, clazz);
+	  LineChartInstance    lci =  new LineChartInstance(); 
+	  for(StatisResult s:list)
+	  {
+		  int total = 0;
+			try {
+				if (s.getYear() == 2009)
+					total = di.query_quantity_from_lqk("lqk09", s.getIndex()+s.getTotal(), school);
+				else if (s.getYear() == 2010)
+					total = di.query_quantity_from_lqk("lqk10", s.getIndex()+ s.getTotal(), school);
+				else if (s.getYear() == 2011)
+					total = di.query_quantity_from_lqk("lqk11", s.getIndex()+ s.getTotal(), school);
+				else if (s.getYear() == 2012)
+					total = di.query_quantity_from_lqk("lqk12", s.getIndex()+ s.getTotal(), school);
+				else if (s.getYear() == 2013)
+					total = di.query_quantity_from_lqk("lqk13", s.getIndex()+ s.getTotal(), school);
+				else if (s.getYear() == 2014)
+					total = di.query_quantity_from_lqk("lqk14", s.getIndex()+ s.getTotal(), school);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  s.setPoint((double)total/(double)(s.getIndex()+s.getTotal()));
+		  lci.setStatis(s.getYear(), s.getPoint());
+	  }
+	  LeastSquares ls = new LeastSquares(list);
+	  ls.analyse();
+	  lci.setStatis(2015, ls.getA()*2015+ls.getB());
 	  try 
 	  {
 		  FXMLLoader loader =new FXMLLoader();
 		  loader.setLocation(MainApp.class.getResource("view/DisplayLineChart.fxml"));
 		  AnchorPane page = (AnchorPane) loader.load();
-		  LineChartInstance    lci =  new LineChartInstance(); 
-		     lci.setStatis(2009, 0.8);
-		     lci.setStatis(2010, 0.5);
-		     lci.setStatis(2011, 0.4);
-		     lci.setStatis(2012, 0.9);
-		     lci.setStatis(2013, 0.1);
-		     lci.setStatis(2014, 0.4);
-		     lci.setStatis(2015, 0.7);
-		     CategoryAxis   xAxis = new CategoryAxis();
-		     NumberAxis  yAxis = new NumberAxis();
-		     xAxis.setLabel("Month"); 
-		     LineChart   lineChart = new LineChart<String,Number>(xAxis,yAxis);  
-		     lineChart.setTitle("高校历年录取指数");
-		     XYChart.Series series = new XYChart.Series();
-		     series.setName("指数线");
-		     series.getData().add(new Data("2009", lci.getStatis()[0]));
-		     series.getData().add(new Data("2010", lci.getStatis()[1]));
-		     series.getData().add(new Data("2011", lci.getStatis()[2]));
-		     series.getData().add(new Data("2012", lci.getStatis()[3]));
-		     series.getData().add(new Data("2013", lci.getStatis()[4]));
-		     series.getData().add(new Data("2014", lci.getStatis()[5]));
-		     series.getData().add(new Data("2015", lci.getStatis()[6]));
-		     System.out.println(series);
-		     lineChart.getData().add(series); 
-		  
-		  
-		  
-		  
-		  
-		  
+		  DisplayLineChartController control = loader.getController();
+		  control.setStatistics(lci);
 		  Scene scene  = new Scene(page);
 	      Stage stage =  new Stage();
 		  stage.setTitle("预测结果");

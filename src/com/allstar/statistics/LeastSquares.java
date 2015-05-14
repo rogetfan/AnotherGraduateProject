@@ -3,7 +3,6 @@ package com.allstar.statistics;
 import java.util.List;
 
 import com.allstar.model.StatisResult;
-import com.allstar.model.University;
 
 /**
  * 求解最小二乘法
